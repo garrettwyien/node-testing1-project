@@ -41,6 +41,13 @@ function trimPropertiesMutation(obj) {
  */
 function findLargestInteger(integers) {
   // ✨ implement
+  let result = integers[0]
+  for (let i = 1; i<integers.length; i++) {
+    if (integers[i].integer > result.integer) {
+      result = integers[i]
+    }
+  }
+  return result.integer
 }
 
 class Counter {
@@ -50,6 +57,7 @@ class Counter {
    */
   constructor(initialNumber) {
     // ✨ initialize whatever properties are needed
+    this.count = initialNumber
   }
 
   /**
@@ -66,6 +74,7 @@ class Counter {
    */
   countDown() {
     // ✨ implement
+    return this.count > 0 ? this.count-- : 0
   }
 }
 
@@ -75,6 +84,7 @@ class Seasons {
    */
   constructor() {
     // ✨ initialize whatever properties are needed
+    this.season = 'spring'
   }
 
   /**
@@ -90,7 +100,24 @@ class Seasons {
    * seasons.next() // returns "summer"
    */
   next() {
+    let spring = 'spring'
+    let summer = 'summer'
+    let fall = 'fall'
+    let winter = 'winter'
     // ✨ implement
+    if (this.season === spring) {
+      this.season = summer
+      return this.season
+    } else if (this.season === summer) {
+      this.season = fall
+      return this.season
+    }else if (this.season === fall) {
+      this.season = winter
+      return this.season
+    } else if (this.season === winter) {
+      this.season = spring
+      return this.season
+    }
   }
 }
 
@@ -105,6 +132,9 @@ class Car {
     this.odometer = 0 // car initilizes with zero miles
     this.tank = tankSize // car initiazes full of gas
     // ✨ initialize whatever other properties are needed
+    this.fuel = tankSize
+    this.mpg = mpg
+    this.name = name
   }
 
   /**
@@ -122,6 +152,16 @@ class Car {
    */
   drive(distance) {
     // ✨ implement
+    let max = this.fuel * this.mpg;
+    if (max > distance) {
+      this.odometer = this.odometer + distance;
+      this.fuel = this.fuel - (distance * (1/this.mpg))
+      return this.odometer
+    } else if (max <= distance) {
+      this.odometer = this.odometer + max;
+      this.fuel = 0
+      return `${this.odometer} (ran out of gas after ${max} miles)`
+    }
   }
 
   /**
@@ -137,6 +177,12 @@ class Car {
    */
   refuel(gallons) {
     // ✨ implement
+    if (gallons + this.fuel <= this.tank) {
+      this.fuel = gallons + this.fuel;
+      return this.fuel * this.mpg;
+    } else if (gallons + this.fuel > this.tank)
+      this.fuel = this.tank
+      return `${this.tank * this.mpg} (tank only holds ${this.tank})`
   }
 }
 
